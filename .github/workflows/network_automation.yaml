@@ -8,7 +8,7 @@ on:
       - 'ansible/**'
       - '.github/workflows/network-automation.yaml'
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '0 2 * * 1'
   workflow_dispatch:
 
 jobs:
