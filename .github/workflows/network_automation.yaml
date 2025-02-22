@@ -1,8 +1,5 @@
 name: Network Automation
 
-permissions:
-  contents: write
-
 on:
   push:
     branches:
@@ -11,7 +8,7 @@ on:
       - 'ansible/**'
       - '.github/workflows/network-automation.yaml'
   schedule:
-    - cron: '*/20 * * * *'
+    - cron: '*/10 * * * *'
   workflow_dispatch:
 
 jobs:
