@@ -1,0 +1,25 @@
+- name: Network Device Configuration and Backup
+  hosts: routers
+  gather_facts: false  # We don't need system facts for simple config changes
+
+  vars:
+    ansible_connection: ansible.netcommon.network_cli  # Use network_cli to connect to the router
+    ansible_network_os: cisco.ios.ios
+    ansible_become: yes
+    ansible_become_method: enable
+
+  tasks:
+    - name: Set Router MOTD Banner
+      ios_config:
+        lines:
+          # This line sets the 'Message of the Day' banner on the router
+          - banner motd ^ Access to this router {{ inventory_hostname }} is restricted. ^
+
+    - name: Save Current Running Configuration
+      ios_config:
+        backup: yes  # Saves backup file
+        backup_options:
+          # Save with router name in filename.
+          filename: "backup-config-{{ inventory_hostname }}"
+          # Store in backups directory
+          dir_path: "ansible/backups"
